@@ -1,0 +1,55 @@
+//node definition
+class Node {
+	int data;
+	Node next;
+	
+	Node(int x) {
+		data = x;
+		next = null;
+	}
+}
+
+public class LinkedListIntersection {
+	public Node getIntersection(Node dataA, Node dataB) {
+
+		// length of List A
+		int lenA = 0;
+		Node tempA = dataA;
+		while (tempA != null) {
+			lenA++;
+			tempA = tempA.next;
+		}
+		// length of List B
+		int lenB = 0;
+		Node tempB = dataB;
+		while (tempB != null) {
+			lenB++;
+			tempB = tempB.next;
+		}
+
+		int dif = lenA - lenB;
+
+		// Go through larger list for remaining nodes
+		tempA = dataA;
+		tempB = dataB;
+
+		if (lenA > lenB) {
+			while (dif-- > 0)
+				tempA = tempA.next;
+		} else {
+			while (dif-- > 0)
+				tempB = tempB.next;
+		}
+
+		// Check if references are equal
+		while (tempA != tempB) {
+			tempA = tempA.next;
+			tempB = tempB.next;
+			if (tempA == null || tempB == null)
+				return null;
+		}
+
+		return tempA;
+
+	}
+}
